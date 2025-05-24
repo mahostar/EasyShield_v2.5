@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="screenshots/EasyShield_Logo.png" width="400" alt="…"/>
+<img src="screenshots/EasyShield_Logo.png" width="100" alt="…"/>
 
 # EasyShield : A State-of-the-Art Face Anti-Spoofing Deep Learning Model
 
