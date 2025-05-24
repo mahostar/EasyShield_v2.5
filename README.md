@@ -37,10 +37,6 @@ _optimized for Edge Devices_
 - [7. How to Train a New Model](#how-to-train-a-new-model)
 - [8. How to Test a Trained Model](#how-to-test-a-trained-model)
 - [9. Model Performance and Analysis](#model-performance-and-analysis)
-  - [9.1. Model Performance Evolution Across versions](#model-performance-evolution-across-versions)
-  - [9.2. Real vs Fake Classification Separation](#real-vs-fake-classification-separation)
-  - [9.3. Model inference time comparison](#model-inference-time-comparison)
-  - [9.4. Models ROC Curves Comparison](#models-roc-curves-comparison)
 - [10. Project Structure](#project-structure)
 - [11. Ethical & Practical Considerations](#ethical--practical-considerations)
 - [12. Conclusion](#conclusion)
@@ -60,8 +56,11 @@ EasyShield leverages a YOLOv8 nano model, a state-of-the-art object detection ar
 
 The performance of EasyShield has been rigorously evaluated and compared against several leading anti-spoofing models. As illustrated in **Figure 1** (Accuracy Comparison) and detailed in **Table 1** (Performance Comparison), EasyShield v2.5 demonstrates superior accuracy, precision, recall, F1 score, AUC, and EER compared to models like MN3_antispoof, DeePixBiS, and WENDGOUNDI. Specifically, EasyShield achieved an accuracy of 92.30% and an EER of 6.25% on our challenging 8000-image test dataset.
 
-![Accuracy Comparison](screenshots/accuracy_comparison.png)
-*Figure 1: Accuracy comparison between EasyShield v2.5 and competing models.*
+<div align="center">
+<img src="screenshots/accuracy_comparison.png" width="600" alt="…"/>
+</div>
+Figure 1: Accuracy comparison between EasyShield v2.5 and competing models.
+
 
 | Metric                   | EasyShield v2.5 | MN3\_antispoof | DeePixBiS | WENDGOUNDI |
 |--------------------------|-----------------|----------------|-----------|------------|
@@ -79,16 +78,6 @@ The performance of EasyShield has been rigorously evaluated and compared against
 
 *Table 1: Performance Comparison of Anti-Spoofing Models on 8000-Image Test Dataset. EasyShield v2.5 shows superior overall performance.*
 
-Furthermore, **Figure 2** (Overall Performance) provides a visual representation of EasyShield's overall performance metrics, underscoring its balanced capabilities in identifying both genuine and spoofed faces. The Equal Error Rate (EER), a critical metric for biometric systems, is also significantly lower for EasyShield, as shown in **Figure 3** (EER Comparison), indicating a better trade-off between false acceptance and false rejection rates.
-
-![Overall Performance](screenshots/overall_performance.png)
-*Figure 2: Overall performance metrics of EasyShield v2.5 compared to competing models.*
-
-![EER Comparison](screenshots/eer_comparison.png)
-*Figure 3: Equal Error Rate (EER) comparison, showing EasyShield's lower EER.*
-
-This document presents the detailed methodology behind EasyShield, including its system architecture, the suite of tools developed for dataset management and model training, and an in-depth analysis of its performance. We also discuss the ethical considerations and practical deployment aspects of our solution.
-
 ## 2. Features
 *   **Lightweight and Fast:** Optimized for deployment on edge devices with limited computational resources, achieving an average inference time of 75.47 ms.
 *   **High Accuracy:** Demonstrates 92.30% accuracy in detecting presentation attacks (e.g., print and replay attacks).
@@ -100,7 +89,10 @@ This document presents the detailed methodology behind EasyShield, including its
 ## 3. System Pipeline Overview
 The EasyShield system employs an end-to-end workflow, illustrated in the figure below, which encompasses data acquisition and preprocessing, model training and evaluation, and finally, deployment for real-time inference. The core of the system is a YOLOv8 nano model, trained to classify input face images (resized to 640x640 pixels) as either "Real" or "Fake." Specialized Python-based tools, equipped with graphical user interfaces (GUIs) where appropriate, are provided to facilitate each step of this pipeline. These tools range from extracting face crops from raw video/image data and augmenting the dataset for improved robustness, to training the model and testing its performance.
 
-![EasyShield Pipeline](screenshots/piplineEasySpoof.png)
+
+<div align="center">
+<img src="screenshots/piplineEasySpoof.png" width="600" alt="…"/>
+</div>
 *Figure 4: Overview of the EasyShield system pipeline from data collection to inference.*
 
 ## 4. Tools Overview
@@ -110,7 +102,10 @@ EasyShield includes a comprehensive suite of Python-based tools designed to stre
 ### 4.1. Face Extractor Tool
 The **Face Extractor tool** (`videos_and_images_face_extractor.py`), located in the `dataset preparing tools/` directory, is designed to process raw input videos (AVI, MP4, MKV) and images (JPEG, PNG) to extract contextual face crops. It utilizes advanced face detection algorithms (e.g., MTCNN or a similar robust detector) to identify faces and then crops them with a consistent margin around the detected bounding box. These crops are automatically resized to 640x640 pixels, the standard input size required by the EasyShield YOLOv8 nano model, ensuring uniformity across the dataset. The tool features a graphical user interface (GUI) for ease of use, allowing users to select input files/folders and specify output directories.
 
-![Face Extractor Tool GUI](screenshots/FaceExtractorTool.png)
+
+<div align="center">
+<img src="screenshots/FaceExtractorTool.png" width="600" alt="…"/>
+</div>
 *Figure 5: Graphical User Interface of the Face Extractor tool.*
 
 ### 4.2. Image Augmentor Tool
@@ -141,30 +136,13 @@ Setting up the EasyShield development environment on Windows requires careful at
 *   Administrator privileges for some installation steps.
 
 **Installation Steps:**
+1.  **Install NVIDIA CUDA Toolkit:**
+    *   Download and install **CUDA Toolkit 11.8** from the [NVIDIA CUDA Toolkit Archive](https://developer.nvidia.com/cuda-11-8-0-download-archive).
 
-1.  **Install Python:**
-    *   Download and install **Python 3.10.6** from the [official Python website](https://www.python.org/downloads/release/python-3106/).
-    *   **Important:** During installation, ensure you check the box "Add Python 3.10 to PATH".
+2.  **Install NVIDIA cuDNN:**
+    *   Download **cuDNN v8.9.6 for CUDA 11.x** from the [NVIDIA cuDNN Archive](https://developer.nvidia.com/rdp/cudnn-archive). You will need to join the NVIDIA Developer Program (free) to download.
 
-2.  **Install Visual Studio:**
-    *   Download and install **Visual Studio 2019 Community Edition (or later)** from the [Visual Studio website](https://visualstudio.microsoft.com/downloads/).
-    *   During installation, select the "Desktop development with C++" workload. This is required for compiling some Python packages.
-
-3.  **Install NVIDIA CUDA Toolkit:**
-    *   Download and install **CUDA Toolkit 11.8** from the [NVIDIA CUDA Toolkit Archive](https://developer.nvidia.com/cuda-11-8-0-download-archive). (Note: The original user setup mentioned 11.2, but `requirements.txt` implies PyTorch with CUDA 11.8. Using 11.8 for consistency with PyTorch build).
-    *   Follow the installer instructions. After installation, verify by opening a Command Prompt and typing `nvcc --version`.
-
-4.  **Install NVIDIA cuDNN:**
-    *   Download **cuDNN v8.9.6 for CUDA 11.x** from the [NVIDIA cuDNN Archive](https://developer.nvidia.com/rdp/cudnn-archive). You will need to join the NVIDIA Developer Program (free) to download. (Note: Original user setup mentioned 8.1.0, using a version compatible with CUDA 11.8).
-    *   Extract the cuDNN archive. Copy the contents of the extracted `bin`, `include`, and `lib` folders into the corresponding folders within your CUDA installation directory (typically `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8`).
-
-5.  **Install Zlib (Precompiled DLL):**
-    *   Download the **zlib DLL** (e.g., `zlibwapi.dll`). A common source is to find precompiled zlib binaries for Windows (e.g., from [MinGW-w64](https://www.mingw-w64.org/) or other third-party sites providing Windows DLLs). For example, if you downloaded `zlib123dllx64.zip` (or similar for zlib 1.2.13+), extract it.
-    *   Copy `zlibwapi.dll` from the `dll_x64` (or equivalent for 64-bit) folder to:
-        *   `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\bin`
-        *   `C:\Windows\System32` (This requires administrator privileges).
-
-6.  **Create a Python Virtual Environment (Highly Recommended):**
+3.  **Create a Python Virtual Environment (Highly Recommended):**
     *   Open a Command Prompt or PowerShell.
     *   Navigate to your project directory (e.g., `cd path\to\EasyShield-Anti-Spoofing-AI-Model`).
     *   Create the virtual environment:
@@ -184,7 +162,7 @@ Setting up the EasyShield development environment on Windows requires careful at
         ```
     *   Install PyTorch (ensure this version matches your CUDA 11.8 setup):
         ```bash
-        pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.6.0.dev20250507+cpu --extra-index-url https://download.pytorch.org/whl/cu118
+        pip install ultralytics opencv-python numpy PyQt5 torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
         ```
     *   Install FaceNet-PyTorch (without its own PyTorch dependency, as it's already installed):
         ```bash
@@ -194,12 +172,6 @@ Setting up the EasyShield development environment on Windows requires careful at
         ```bash
         pip install -r requirements.txt
         ```
-
-**Common Issues and Solutions (Windows):**
-*   **`nvcc` not recognized:** CUDA Toolkit path is not set correctly. Ensure it was added during installation or add it manually to the system's PATH environment variable.
-*   **DLL load failed errors (especially for PyTorch/TensorFlow):** Often due to CUDA/cuDNN version mismatches, missing cuDNN DLLs in the PATH, or missing Visual C++ Redistributables. Double-check cuDNN files are copied correctly and that you have the latest Visual C++ Redistributable installed.
-*   **Permission errors when copying Zlib DLL to System32:** Ensure you are running Command Prompt as Administrator.
-*   **Pip install failures for certain packages:** May require build tools (Visual Studio C++ workload) or specific library headers. Check the error messages for clues.
 
 ### 5.2. Linux/Edge Device Setup
 
@@ -233,27 +205,11 @@ Setting up EasyShield on Linux or an edge device (e.g., NVIDIA Jetson, Raspberry
         ```bash
         python -m pip install --upgrade pip
         ```
-    *   **Install PyTorch:** The command depends on your device and CUDA version.
-        *   For devices with NVIDIA GPUs (like Jetson, or desktops with CUDA 12.1):
-            ```bash
-            pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-            ```
-        *   For CPU-only environments or other specific CUDA versions, refer to the [official PyTorch installation guide](https://pytorch.org/get-started/locally/).
-    *   **Install FaceNet-PyTorch** (without its own PyTorch dependency):
-        ```bash
-        pip install facenet-pytorch --no-deps
-        ```
-    *   **Install Linux-specific base packages** (as listed previously, these are generally good for development and running GUI tools, some might be optional for headless edge deployment):
-        ```bash
-        pip install numpy>=1.26.0 matplotlib>=3.8.0 pandas>=2.2.0 pillow>=11.0.0 opencv-python>=4.8.0.74 scikit-learn>=1.4.0 tqdm>=4.66.0 PyQt5>=5.15.9 PyQt5-sip>=12.13.0 ultralytics>=8.0.0 seaborn>=0.13.0 tabulate>=0.9.0 rich>=13.3.5
-        ```
-        *Note: `ultralytics` will install `torch` and `torchvision` if not present, but it's better to install PyTorch explicitly first to ensure compatibility with your system's CUDA version.*
     *   **Install remaining dependencies** from `requirements_linux.txt`:
         This file should contain packages specific to EasyShield that are not covered by the above, or versions pinned for Linux that differ from the main `requirements.txt`.
         ```bash
         pip install -r requirements_linux.txt
         ```
-        Review `requirements_linux.txt` to avoid redundancy if packages are already installed by the command above. It's designed to be minimal.
 
 ## 6. Dataset Workflow
 
@@ -265,7 +221,6 @@ The creation of a high-quality dataset is fundamental to the success and robustn
         *   **Spoofing attacks:**
             *   **Print attacks:** High-quality printed photos of faces, photos displayed on digital screens.
             *   **Replay attacks:** Videos of faces played back on tablets, smartphones, or monitors.
-            *   (Optional) 3D masks if the model is intended to detect these.
 
 2.  **Face Extraction (`videos_and_images_face_extractor.py`):**
     *   **Purpose:** To detect and isolate face regions from the collected media.
@@ -283,7 +238,7 @@ The creation of a high-quality dataset is fundamental to the success and robustn
     *   **Output:** A curated, high-quality dataset of face images.
 
 5.  **Dataset Preparation (`prepare_data.py`):**
-    *   **Purpose:** To organize the curated dataset into the specific format required by the YOLOv8 training framework.
+    *   **Purpose:** To organize the curated dataset into the specific format required by the YOLOv12 training framework.
     *   **Process:** Run the `prepare_data.py` script (see Section 4.4). This script will typically:
         *   Split the data into training and validation sets (e.g., 80% train, 20% valid).
         *   Create the necessary directory structure (e.g., `Dataset_Demo_Exemple/train/images`, `Dataset_Demo_Exemple/train/labels`, etc.).
@@ -312,15 +267,8 @@ Training a new EasyShield anti-spoofing model involves using the `Easy_Spoof_Tra
 2.  **Run the Training Script:**
     Execute `Easy_Spoof_Trainer.py` with appropriate command-line arguments. Here's a basic example:
     ```bash
-    python Easy_Spoof_Trainer.py --data path/to/your/dataset.yaml --epochs 100 --batch-size 16 --model yolov8n.pt --name YourExperimentName
+    python Easy_Spoof_Trainer.py
     ```
-    *   `--data`: **Required.** Path to your `dataset.yaml` file (e.g., `../../Dataset_Demo_Exemple/dataset.yaml`).
-    *   `--epochs`: Number of training epochs (e.g., `100`). More epochs can lead to better performance but also risk overfitting.
-    *   `--batch-size`: Number of images processed in each batch (e.g., `16`). Adjust based on your GPU memory. Use smaller values if you encounter out-of-memory errors.
-    *   `--model`: Pretrained YOLO model to use as a base. For YOLOv8 Nano, use `yolov8n.pt`. You can also specify a path to other YOLOv8 variants (e.g., `yolov8s.pt`) or a previously trained custom model (`.pt` file) for transfer learning.
-    *   `--name`: A custom name for your training experiment. Results will be saved in a directory like `runs/train/YourExperimentName`.
-    *   *(Optional)* Other arguments: The trainer script may support additional YOLOv8 arguments for learning rate, image size, device selection (`--device cpu` or `--device 0` for GPU), etc. Refer to Ultralytics YOLOv8 documentation or the script's help (`python Easy_Spoof_Trainer.py --help`) for more options.
-
 3.  **Monitor Training and Results:**
     *   The training progress will be displayed in the terminal, including metrics like loss, accuracy, precision, and recall for each epoch.
     *   Upon completion, the trained model (usually `best.pt` and `last.pt`), along with various performance charts (e.g., confusion matrix, ROC curve) and logs, will be saved in the `runs/train/YourExperimentName/` directory. The `best.pt` model is typically the one with the best validation performance.
@@ -350,71 +298,15 @@ After training your EasyShield model, you can test its performance on live webca
 2.  **Run the Testing Script:**
     Execute `test_model.py` with arguments specifying the trained model weights and the input source.
     ```bash
-    python test_model.py --weights path/to/your/trained_model.pt --source <source_identifier>
+    python test_model.py
     ```
-    *   `--weights`: **Required.** Path to your trained model's `.pt` file (e.g., `../../EasyShield weights/EasyShield V2.5 - nano/best.pt` or `../../runs/train/YourExperimentName/weights/best.pt`).
-    *   `--source`: **Required.** Identifier for the input source:
-        *   Use `0` for the default system webcam.
-        *   Use `1`, `2`, etc., for other connected webcams.
-        *   Provide a path to an image file (e.g., `../../Dataset_Demo_Exemple/real/some_image.jpg`).
-        *   Provide a path to a video file (e.g., `../../my_test_video.mp4`).
-
-    **Example Usage:**
-    *   Testing with webcam:
-        ```bash
-        python test_model.py --weights "../../EasyShield weights/EasyShield V2.5 - nano/best.pt" --source 0
-        ```
-    *   Testing with an image file:
-        ```bash
-        python test_model.py --weights "../../EasyShield weights/EasyShield V2.5 - nano/best.pt" --source "../../Dataset_Demo_Exemple/fake/some_fake_image.png"
-        ```
-
-3.  **Observe Results:**
-    *   A GUI window will open, displaying the video feed or image.
-    *   The model's predictions ("Real" or "Fake") will be shown, typically overlaid on the detected faces, along with a confidence score. This allows for a qualitative assessment of the model's performance in real-time or on specific samples.
 
 ## 9. Model Performance and Analysis
 
-This section details the performance of the EasyShield v2.5 model, achieved through rigorous training and evaluation. The analysis includes comparisons with other models and a breakdown of key performance indicators.
-
-### 9.1. Model Performance Evolution Across versions
 EasyShield has undergone several iterations of development, with each version incorporating improvements in dataset curation, augmentation strategies, and model training techniques. **Figure 7** (formerly Figure X) illustrates the performance trajectory across these development versions, highlighting the progressive enhancements in metrics such as accuracy and EER.
 
 ![Model Performance Evolution](screenshots/ModelsPerformence.png)
 *Figure 7: Model Performance Evolution of EasyShield across different development versions, showcasing improvements in key anti-spoofing metrics.*
-
-### 9.2. Real vs Fake Classification Separation
-A critical aspect of an anti-spoofing model is its ability to clearly distinguish between "Real" (genuine) and "Fake" (spoofed) presentations. The EasyShield model outputs a confidence score, which can be used to make this distinction. **Figure 8** (formerly Figure Y) and **Table 2** illustrate the separation achieved by the model based on these output scores. A clear separation between the score distributions for real and fake samples indicates better discriminative power.
-
-![Classification Separation Diagram](screenshots/separationDigram.png)
-*Figure 8: Diagram illustrating the conceptual separation between 'Real' and 'Fake' classification scores. Ideally, the distributions for scores from real and fake samples have minimal overlap.*
-
-**Table 2:** Interpretation of model output scores for Real vs. Fake classification. The threshold for classifying as 'Real' or 'Fake' is typically 0.5, but can be adjusted based on the desired trade-off between False Acceptance Rate (FAR) and False Rejection Rate (FRR).
-
-| Score Range | Predicted Class (example threshold 0.5) | Confidence Indication        |
-|-------------|-----------------------------------------|------------------------------|
-| 0.0 - 0.2   | Fake                                    | High confidence in 'Fake'    |
-| 0.2 - 0.4   | Fake                                    | Medium confidence in 'Fake'  |
-| 0.4 - 0.6   | Ambiguous / Near Threshold              | Low confidence (Uncertain)   |
-| 0.6 - 0.8   | Real                                    | Medium confidence in 'Real'  |
-| 0.8 - 1.0   | Real                                    | High confidence in 'Real'    |
-*Note: The exact score ranges and interpretations might vary based on model calibration and the specific threshold used.*
-
-### 9.3. Model inference time comparison
-Efficiency, particularly inference time, is crucial for deployment on edge devices. As detailed in **Table 1** (in the Introduction), EasyShield v2.5 achieves an average inference time of 75.47 ms on the tested edge hardware. While some models like WENDGOUNDI report faster inference times (e.g., 6.93 ms), this often comes at a significant cost to accuracy and other critical anti-spoofing metrics (WENDGOUNDI Accuracy: 58.33%, EER: 38.65% vs. EasyShield Accuracy: 92.30%, EER: 6.25%). EasyShield provides a strong balance between speed and reliability.
-
-
-### 9.4. Models ROC Curves Comparison
-The Receiver Operating Characteristic (ROC) curve is a fundamental tool for evaluating the performance of binary classification systems, such as face anti-spoofing models. The ROC curve plots the True Positive Rate (TPR, or Recall/Sensitivity) against the False Positive Rate (FPR, or 1 - Specificity) at various classification threshold settings.
-*   **True Positive Rate (TPR):** The proportion of actual spoofs that are correctly identified as spoofs.
-*   **False Positive Rate (FPR):** The proportion of genuine faces that are incorrectly identified as spoofs.
-
-The Area Under the Curve (AUC) is a scalar measure that quantifies the overall ability of the classifier to distinguish between classes. An AUC of 1.0 represents a perfect classifier, while an AUC of 0.5 indicates a classifier with no discriminative ability (equivalent to random guessing).
-
-EasyShield v2.5 demonstrates a superior ROC curve with an AUC of **98.61%**, as shown in **Figure 10** (formerly Figure W). This high AUC value indicates its strong capability to distinguish between real and fake faces across a wide range of operational thresholds, outperforming the compared models (MN3_antispoof AUC: 81.11%, DeePixBiS AUC: 40.29%, WENDGOUNDI AUC: 61.79%).
-
-![ROC Curve Comparison](screenshots/curveCompareson.png)
-*Figure 10: Comparison of ROC Curves for EasyShield v2.5 and competing anti-spoofing models. A curve closer to the top-left corner indicates better performance. EasyShield's higher AUC highlights its superior discriminative power.*
 
 ## 10. Project Structure
 
@@ -474,31 +366,10 @@ While EasyShield offers significant advancements in face anti-spoofing, it is cr
     *   The collection, storage, and use of facial data are subject to stringent privacy regulations (e.g., GDPR, CCPA) and ethical guidelines. Facial images are considered sensitive personal information.
     *   **Mitigation:** Systems using EasyShield must ensure user consent is obtained where required, data is anonymized or pseudonymized if possible, stored securely, and processed only for the intended purposes. Transparency with users about data handling practices is essential.
 
-3.  **Adversarial Attacks:**
-    *   Like other machine learning models, anti-spoofing systems can be vulnerable to adversarial attacks. These are carefully crafted inputs designed by malicious actors to deceive the model (e.g., causing a spoof to be recognized as real, or vice-versa).
-    *   **Mitigation:** While EasyShield is designed to be robust against common presentation attacks, research into detecting and defending against novel adversarial techniques is an ongoing process.
-
-4.  **Limitations of Spoof Detection (False Positives vs. False Negatives):**
-    *   **False Negatives (FN):** A spoof attack is incorrectly classified as a genuine face. This is a critical failure for security. EasyShield aims to minimize FNs (related to BPCER - Bona Fide Presentation Classification Error Rate).
-    *   **False Positives (FP):** A genuine user is incorrectly classified as a spoof. This impacts usability and user experience (related to APCER - Attack Presentation Classification Error Rate).
-    *   No anti-spoofing system is entirely foolproof. EasyShield is designed to counter common presentation attacks (print, replay) effectively, but highly sophisticated or entirely novel spoofing methods might still pose a challenge. The balance between minimizing FNs and FPs often needs to be tuned based on the specific application's risk tolerance.
-
-5.  **Deployment Context and Security-First Design:**
-    *   The performance of EasyShield on edge devices can be influenced by hardware capabilities (CPU, GPU, memory), software optimizations, and the specific operating environment.
-    *   EasyShield should be integrated as part of a layered security approach. It is not a standalone security solution but a component that enhances the robustness of a face recognition system.
-    *   Regular updates to the model and system software are crucial to address new vulnerabilities and attack vectors.
-
-Responsible development and deployment of EasyShield require a commitment to ongoing monitoring, evaluation, and improvement, addressing both technical challenges and societal concerns.
-
 ## 12. Conclusion
 
-EasyShield presents a significant step forward in the domain of face anti-spoofing technology, particularly for deployment on resource-constrained edge devices. By synergizing a lightweight YOLOv8 nano architecture with a meticulously designed dataset preparation pipeline and specialized training methodologies, EasyShield achieves state-of-the-art performance. It demonstrably outperforms several existing models in crucial metrics including accuracy (92.30%), Equal Error Rate (EER: 6.25%), and Area Under the Curve (AUC: 98.61%).
-
+EasyShield presents a significant step forward in the domain of face anti-spoofing technology, particularly for deployment on resource-constrained edge devices. By synergizing a lightweight YOLOv12 nano architecture with a meticulously designed dataset preparation pipeline and specialized training methodologies, EasyShield achieves state-of-the-art performance. It demonstrably outperforms several existing models in crucial metrics including accuracy (92.30%), Equal Error Rate (EER: 6.25%), and Area Under the Curve (AUC: 98.61%).
 The comprehensive suite of tools provided with EasyShield facilitates the entire development lifecycle, from initial data collection and augmentation to model training, evaluation, and real-time testing. This holistic approach empowers developers and researchers to adapt and further enhance the system.
-
-The system's ability to deliver high accuracy with a low EER and a practical average inference time (75.47 ms on tested edge hardware) makes it a viable and effective solution for real-world applications requiring robust protection against facial spoofing attacks. Future work will be directed towards further enhancing the model's robustness against novel and unforeseen attack vectors, expanding the diversity of the training dataset to cover more edge cases, and exploring advanced model compression and quantization techniques for even greater efficiency on ultra-low-power devices.
-
-The ethical deployment and continuous improvement of EasyShield remain paramount. Ensuring fairness, privacy, and security is an ongoing commitment, vital for its responsible contribution to the evolving landscape of security technology.
 
 ## 13. References
 
@@ -512,6 +383,3 @@ The development of EasyShield and the information presented in this document dra
     *   **CelebA-Spoof Dataset:** A large-scale face anti-spoofing dataset. Zhang, Y., et al. (2020). CelebA-Spoof: Large-Scale CelebFace Anti-Spoofing Dataset with Rich Annotations. [https://github.com/Davidzhangyuanhan/CelebA-Spoof](https://github.com/Davidzhangyuanhan/CelebA-Spoof)
     *   Boulkenafet, Z., Komulainen, J., & Hadid, A. (2016). Face Spoofing Detection Using Colour Texture Analysis. *IEEE Transactions on Image Processing, 25*(7), 3321-3334. [DOI: 10.1109/TIP.2016.2555286](https://doi.org/10.1109/TIP.2016.2555286) (Example of foundational work in the field).
     *   Chingovska, I., Anjos, A., & Marcel, S. (2012). Anti-spoofing in action: A face spoofing database and a study on generalisation. *2012 IEEE International Joint Conference on Biometrics (IJCB)*, 1-7. [DOI: 10.1109/IJCB.2012.6199762](https://doi.org/10.1109/IJCB.2012.6199762) (Highlights importance of databases and generalization).
-
-*(Additional relevant papers, datasets, and resources that influenced the EasyShield project would be listed here. The list above provides examples of common and influential resources.)*
-```
