@@ -385,8 +385,6 @@ A critical aspect of an anti-spoofing model is its ability to clearly distinguis
 ### 9.3. Model inference time comparison
 Efficiency, particularly inference time, is crucial for deployment on edge devices. As detailed in **Table 1** (in the Introduction), EasyShield v2.5 achieves an average inference time of 75.47 ms on the tested edge hardware. While some models like WENDGOUNDI report faster inference times (e.g., 6.93 ms), this often comes at a significant cost to accuracy and other critical anti-spoofing metrics (WENDGOUNDI Accuracy: 58.33%, EER: 38.65% vs. EasyShield Accuracy: 92.30%, EER: 6.25%). EasyShield provides a strong balance between speed and reliability.
 
-![Inference Time Comparison](screenshots/infrence.png)
-*Figure 9 (Same as top image, formerly Figure Z): Visualization of inference times, comparing EasyShield with other models (data from Table 1).*
 
 ### 9.4. Models ROC Curves Comparison
 The Receiver Operating Characteristic (ROC) curve is a fundamental tool for evaluating the performance of binary classification systems, such as face anti-spoofing models. The ROC curve plots the True Positive Rate (TPR, or Recall/Sensitivity) against the False Positive Rate (FPR, or 1 - Specificity) at various classification threshold settings.
