@@ -1,0 +1,16 @@
+numpy>=1.26.0
+matplotlib>=3.8.0
+pandas>=2.2.0
+pillow>=11.0.0
+opencv-python>=4.8.0.74
+scikit-learn>=1.4.0
+tqdm>=4.66.0
+PyQt5>=5.15.9
+PyQt5-sip>=12.13.0
+# PyTorch and torchvision should be installed separately based on the specific Linux environment 
+# (e.g., CUDA version for Jetson, CPU-only for some Pis).
+# ultralytics will pull in torch and torchvision if not already present and compatible.
+ultralytics>=8.0.0 
+# seaborn, tabulate, rich are likely not needed for typical edge testing GUI/scripts.
+# If MTCNN (facenet-pytorch) is used in a specific Linux testing script, it should be installed separately.
+# For example: pip install facenet-pytorch --no-deps
