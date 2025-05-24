@@ -3,6 +3,33 @@
   <img src="screenshots/infrence.png" width="400" alt="…"/>
 </p>
 
+## Table of Contents
+- [Abstract](#abstract)
+- [1. Introduction](#introduction)
+- [2. Features](#features)
+- [3. System Pipeline Overview](#system-pipeline-overview)
+- [4. Tools Overview](#tools-overview)
+  - [4.1. Face Extractor Tool](#face-extractor-tool)
+  - [4.2. Image Augmentor Tool](#image-augmentor-tool)
+  - [4.3. Image Filtering Tool](#image-filtering-tool)
+  - [4.4. Dataset Preparation Script (`prepare_data.py`)](#dataset-preparation-script-prepare_datapy)
+  - [4.5. Easy Spoof Trainer Tool (`Easy_Spoof_Trainer.py`)](#easy-spoof-trainer-tool-easy_spoof_trainerpy)
+  - [4.6. Model Testing Tool (`test_model.py`)](#model-testing-tool-test_modelpy)
+- [5. Setup and Installation](#setup-and-installation)
+  - [5.1. Windows Development Environment Setup](#windows-development-environment-setup)
+  - [5.2. Linux/Edge Device Setup](#linuxedge-device-setup)
+- [6. Dataset Workflow](#dataset-workflow)
+- [7. How to Train a New Model](#how-to-train-a-new-model)
+- [8. How to Test a Trained Model](#how-to-test-a-trained-model)
+- [9. Model Performance and Analysis](#model-performance-and-analysis)
+  - [9.1. Model Performance Evolution Across versions](#model-performance-evolution-across-versions)
+  - [9.2. Real vs Fake Classification Separation](#real-vs-fake-classification-separation)
+  - [9.3. Model inference time comparison](#model-inference-time-comparison)
+  - [9.4. Models ROC Curves Comparison](#models-roc-curves-comparison)
+- [10. Project Structure](#project-structure)
+- [11. Ethical & Practical Considerations](#ethical--practical-considerations)
+- [12. Conclusion](#conclusion)
+- [13. References](#references)
 
 ## Abstract
 
