@@ -7,7 +7,7 @@
 _optimized for Edge Devices_
 
 [![image](https://img.shields.io/pypi/v/magentic_ui.svg)](https://pypi.python.org/pypi/uv)
-[![image](https://img.shields.io/pypi/l/magentic_ui.svg)](https://pypi.python.org/pypi/magentic_ui)
+[![Paper](https://img.shields.io/badge/paper-coming--soon-lightgrey)]()
 
 </div>
 
