@@ -75,6 +75,8 @@ The performance of EasyShield has been rigorously evaluated and compared against
 | BPCER                    | **2.50%**       | 57.25%         | 11.70%    | 20.25%     |
 | ACER                     | **4.38%**       | 33.40%         | 45.80%    | 38.65%     |
 | Avg. Inference Time (ms) | 75.47           | 9.36           | 59.20     | **6.93**   |
+
+
 *Table 1: Performance Comparison of Anti-Spoofing Models on 8000-Image Test Dataset. EasyShield v2.5 shows superior overall performance.*
 
 Furthermore, **Figure 2** (Overall Performance) provides a visual representation of EasyShield's overall performance metrics, underscoring its balanced capabilities in identifying both genuine and spoofed faces. The Equal Error Rate (EER), a critical metric for biometric systems, is also significantly lower for EasyShield, as shown in **Figure 3** (EER Comparison), indicating a better trade-off between false acceptance and false rejection rates.
