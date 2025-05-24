@@ -1,7 +1,21 @@
-# EasyShield: A State-of-the-Art Face Anti-Spoofing System for Edge Devices
-<p align="center">
-  <img src="screenshots/infrence.png" width="400" alt="…"/>
-</p>
+<div align="center">
+
+<img src="screenshots/EasyShield_Logo.png" width="400" alt="…"/>
+
+# EasyShield : A State-of-the-Art Face Anti-Spoofing AI Model
+
+_optimized for Edge Devices_
+
+[![image](https://img.shields.io/pypi/v/magentic_ui.svg)](https://pypi.python.org/pypi/uv)
+[![image](https://img.shields.io/pypi/l/magentic_ui.svg)](https://pypi.python.org/pypi/magentic_ui)
+
+</div>
+
+
+<div align="center">
+<img src="screenshots/infrence.png" width="400" alt="…"/>
+</div>
+
 
 ## Table of Contents
 - [Abstract](#abstract)
