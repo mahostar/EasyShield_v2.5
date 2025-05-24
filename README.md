@@ -1,7 +1,7 @@
 # EasyShield: A State-of-the-Art Face Anti-Spoofing System for Edge Devices
-<!-- in your README.md -->
-<img src="screenshots/infrence.png" width="400" alt="Real vs Fake inference time testing" />
-
+<p align="center">
+  <img src="screenshots/infrence.png" width="400" alt="…"/>
+</p>
 ## Table of Contents
 - [Abstract](#abstract)
 - [1. Introduction](#introduction)
