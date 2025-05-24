@@ -6,8 +6,9 @@
 
 _optimized for Edge Devices_
 
-[![image](https://img.shields.io/pypi/v/magentic_ui.svg)](https://pypi.python.org/pypi/uv)
-[![Paper](https://img.shields.io/badge/paper-coming--soon-lightgrey)]()
+[![Source Code](https://img.shields.io/badge/source%20code-GitHub-181717.svg?logo=github)](https://github.com/mahostar/EasyShield-Anti-Spoofing-AI-Model)
+[![Paper](https://img.shields.io/badge/paper-coming--soon-lightgrey?logo=latex&logoColor=white)](https://github.com/mahostar/EasyShield-Anti-Spoofing-AI-Model)
+
 
 </div>
 
