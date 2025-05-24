@@ -19,7 +19,6 @@ _optimized for Edge Devices_
 
 
 ## Table of Contents
-- [Abstract](#abstract)
 - [1. Introduction](#introduction)
 - [2. Features](#features)
 - [3. System Pipeline Overview](#system-pipeline-overview)
