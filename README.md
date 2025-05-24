@@ -7,7 +7,7 @@
 _optimized for Edge Devices_
 
 [![Source Code](https://img.shields.io/badge/source%20code-GitHub-181717.svg?logo=github)](https://github.com/mahostar/EasyShield-Anti-Spoofing-AI-Model)
-[![License](https://img.shields.io/badge/License-MIT-007ec6?style=flat-square&logo=law&logoColor=white)](https://github.com/mahostar/EasyShield-Anti-Spoofing-AI-Model/blob/main/LICENSE)
+[![License ⚖️ MIT](https://img.shields.io/badge/license-MIT-007ec6?style=flat-square)](https://github.com/mahostar/EasyShield-Anti-Spoofing-AI-Model/blob/main/LICENSE)
 
 
 [![Paper](https://img.shields.io/badge/paper-coming--soon-lightgrey?logo=latex&logoColor=white)](https://github.com/mahostar/EasyShield-Anti-Spoofing-AI-Model)
