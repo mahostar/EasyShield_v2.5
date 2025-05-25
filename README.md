@@ -42,7 +42,7 @@ _optimized for Edge Devices_
 Facial‐recognition systems can be tricked by things like printed photos or video replays, putting security at risk. EasyShield v2.5 tackles this head-on, outperforming other leading anti-spoofing methods in tests—catching fake faces with over 92% accuracy and keeping its error rate low.
 
 <div align="center">
-<img src="screenshots/accuracy_comparison.png" width="600" alt="…"/>
+<img src="screenshots/accuracy_com.png" width="600" alt="…"/>
 </div>
 
 Figure 1: Accuracy comparison between EasyShield v2.5 and competing models.
