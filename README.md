@@ -44,6 +44,7 @@ Facial‐recognition systems can be tricked by things like printed photos or vid
 <div align="center">
 <img src="screenshots/accuracy_comparison.png" width="600" alt="…"/>
 </div>
+
 Figure 1: Accuracy comparison between EasyShield v2.5 and competing models.
 
 
