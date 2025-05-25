@@ -24,23 +24,17 @@ _optimized for Edge Devices_
 - [2. Features](#2-features)
 - [3. System Pipeline Overview](#3-system-pipeline-overview)
 - [4. Tools Overview](#4-tools-overview)
-  - [4.1. Face Extractor Tool](#41-face-extractor-tool)
-  - [4.2. Image Augmentor Tool](#42-image-augmentor-tool)
-  - [4.3. Image Filtering Tool](#43-image-filtering-tool)
-  - [4.4. Dataset Preparation Script (`prepare_data.py`)](#44-dataset-preparation-script-prepare_datapy)
-  - [4.5. Easy Spoof Trainer Tool (`Easy_Spoof_Trainer.py`)](#45-easy-spoof-trainer-tool-easy_spoof_trainerpy)
-  - [4.6. Model Testing Tool (`test_model.py`)](#46-model-testing-tool-test_modelpy)
+
 - [5. Setup and Installation](#5-setup-and-installation)
   - [5.1. Windows Development Environment Setup](#51-windows-development-environment-setup)
   - [5.2. Linux/Edge Device Setup](#52-linuxedge-device-setup)
 - [6. Dataset Workflow](#6-dataset-workflow)
 - [7. How to Train a New Model](#7-how-to-train-a-new-model)
 - [8. How to Test a Trained Model](#8-how-to-test-a-trained-model)
-- [9. Model Performance and Analysis](#9-model-performance-and-analysis)
-- [10. Project Structure](#10-project-structure)
-- [11. Ethical & Practical Considerations](#11-ethical--practical-considerations)
-- [12. Conclusion](#12-conclusion)
-- [13. References](#13-references)
+- [9. Project Structure](#10-project-structure)
+- [10. Ethical & Practical Considerations](#11-ethical--practical-considerations)
+- [11. Conclusion](#12-conclusion)
+- [12. References](#13-references)
 
 
 ## 1. Introduction
@@ -90,31 +84,17 @@ The EasyShield system employs an end-to-end workflow, illustrated in the figure 
 
 ## 4. Tools Overview
 
-EasyShield includes a comprehensive suite of Python-based tools designed to streamline the entire lifecycle of developing and deploying the face anti-spoofing model. These tools facilitate dataset creation, augmentation, training, and testing.
+- Face Extractor Tool: Extracts faces from images/videos using MTCNN, crops with margin, resizes to 640x640, GUI included.
 
-### 4.1. Face Extractor Tool
-The **Face Extractor tool** (`videos_and_images_face_extractor.py`), located in the `dataset preparing tools/` directory, is designed to process raw input videos (AVI, MP4, MKV) and images (JPEG, PNG) to extract contextual face crops. It utilizes advanced face detection algorithms (e.g., MTCNN or a similar robust detector) to identify faces and then crops them with a consistent margin around the detected bounding box. These crops are automatically resized to 640x640 pixels, the standard input size required by the EasyShield YOLOv8 nano model, ensuring uniformity across the dataset. The tool features a graphical user interface (GUI) for ease of use, allowing users to select input files/folders and specify output directories.
+- Image Augmentor Tool: Applies data augmentations like rotation, blur, brightness, contrast, and flipping to boost dataset diversity.
 
+- Image Filtering Tool: Uses MTCNN to flag/remove low-quality or misaligned face images, helping clean the dataset manually or automatically.
 
-<div align="center">
-<img src="screenshots/FaceExtractorTool.png" width="600" alt="…"/>
-</div>
-*Figure 5: Graphical User Interface of the Face Extractor tool.*
+- Dataset Preparation Script: Sorts images into YOLO format with train/valid/test folders and generates dataset.yaml for YOLO training.
 
-### 4.2. Image Augmentor Tool
-The **Image Augmentor tool** (`image_augmentor.py`), also found in `dataset preparing tools/`, applies a variety of data augmentation techniques to the extracted face crops. Data augmentation is a crucial step for increasing the diversity of the training dataset, which significantly helps in improving the model's generalization capabilities and its robustness against unseen variations in real-world scenarios. Techniques employed may include random rotations, brightness adjustments, contrast changes, Gaussian blur, and horizontal flips. Users can typically configure the types and intensity of augmentations to be applied.
+- Easy Spoof Trainer Tool: Trains YOLOv8 nano model on prepared dataset with support for tuning hyperparameters and outputs training metrics and best weights.
 
-### 4.3. Image Filtering Tool
-The **Image Filtering tool** (`image_filtring.py`), part of the `dataset preparing tools/` suite, allows for manual review and filtering of the augmented dataset. This tool often integrates a face detector like MTCNN (Multi-task Cascaded Convolutional Networks) to provide suggestions or automatically flag potentially problematic images. These could include images with misaligned faces, multiple faces where a single face is expected, non-face images that were incorrectly cropped, or images with poor quality (e.g., excessive blur or low resolution not introduced by augmentation). This quality control step is paramount for ensuring that the training data is of high quality, which directly impacts the accuracy and reliability of the final model.
-
-### 4.4. Dataset Preparation Script (`prepare_data.py`)
-The `prepare_data.py` script, located in `dataset preparing tools/`, is responsible for organizing the filtered and augmented images into the specific directory structure and format required by the YOLO (You Only Look Once) training framework. It typically involves creating `train/` and `valid/` (and optionally `test/`) subdirectories, each containing `images/` and `labels/` folders. For this binary classification task (Real vs. Fake), it would sort images into 'Real' and 'Fake' source folders and then prepare them accordingly. Crucially, this script also generates a `dataset.yaml` file. This YAML configuration file defines the paths to the training and validation image sets, specifies the number of classes (2, in this case), and lists the class names (e.g., "Real", "Fake").
-
-### 4.5. Easy Spoof Trainer Tool (`Easy_Spoof_Trainer.py`)
-The **Easy Spoof Trainer tool** (`Easy_Spoof_Trainer.py`), located in the `Trained TOOL for YOLO/` directory, is the core component for training the EasyShield model. It takes the dataset prepared in the YOLO format (referenced by the `dataset.yaml` file) and trains the specified YOLOv8 nano model for the binary face anti-spoofing classification task. The tool manages the training loop, allows configuration of hyperparameters (e.g., learning rate, number of epochs, batch size), and leverages the Ultralytics YOLO framework. Upon completion of training, it provides extensive evaluation metrics, including accuracy, precision, recall, F1-score, Area Under the Curve (AUC), and Equal Error Rate (EER). It also typically outputs confusion matrices, ROC curves, and saves the trained model weights (e.g., `best.pt`).
-
-### 4.6. Model Testing Tool (`test_model.py`)
-The `test_model.py` script, available in `Testing Code (windows)/` and `Testing Code (Linux)/` directories, provides a GUI for real-time testing and qualitative assessment of the trained EasyShield model. Users can input live video feeds (e.g., from a webcam by specifying source `0`) or individual images/videos by providing their file paths. The tool loads the trained YOLOv8 model weights (a `.pt` file) and performs inference on the input. It then displays the model's prediction (Real or Fake) overlaid on the video feed or image, usually along with a confidence score for the prediction. This allows for immediate visual feedback on the model's performance in practical scenarios.
+- Model Testing Tool: Loads trained model in a GUI for real-time or file-based testing, showing Real/Fake predictions with confidence scores.
 
 ## 5. Setup and Installation
 
@@ -239,6 +219,7 @@ The creation of a high-quality dataset is fundamental to the success and robustn
     *   **Output:** A YOLO-formatted dataset ready for training.
 
 ![Dataset Example](screenshots/datasetExemple.png)
+
 *Figure 6: Example of the dataset structure after preparation, showing 'real' and 'fake' images categorized for training and validation (actual structure may vary based on `prepare_data.py` script).*
 
 ## 7. How to Train a New Model
@@ -268,40 +249,24 @@ Training a new EasyShield anti-spoofing model involves using the `Easy_Spoof_Tra
 
 ## 8. How to Test a Trained Model
 
-After training your EasyShield model, you can test its performance on live webcam feed, video files, or individual images using the `test_model.py` script.
+- Ensure you have a trained model file like `best.pt` and the EasyShield environment properly set up.
 
-**Prerequisites:**
-*   A trained EasyShield model file (e.g., `best.pt` from your training output).
-*   The EasyShield environment correctly set up as per Section [5. Setup and Installation](#5-setup-and-installation).
-
-**Steps to Test:**
-
-1.  **Navigate to the Testing Script Directory:**
-    Open your terminal or command prompt, activate your virtual environment (`easyshield_env`), and navigate to the appropriate testing code directory:
-    *   For Windows:
-        ```bash
-        cd path/to/EasyShield-Anti-Spoofing-AI-Model/"Testing Code (windows)/"
-        ```
-    *   For Linux:
-        ```bash
-        cd path/to/EasyShield-Anti-Spoofing-AI-Model/"Testing Code (Linux)/"
-        ```
-    *(Ensure the `test_model.py` script is present in this directory.)*
-
-2.  **Run the Testing Script:**
-    Execute `test_model.py` with arguments specifying the trained model weights and the input source.
+- Navigate to the testing script directory based on your OS:
+  * For Windows:
     ```bash
-    python test_model.py
+    cd path/to/EasyShield-Anti-Spoofing-AI-Model/"Testing Code (windows)/"
+    ```
+  * For Linux:
+    ```bash
+    cd path/to/EasyShield-Anti-Spoofing-AI-Model/"Testing Code (Linux)/"
     ```
 
-## 9. Model Performance and Analysis
+- Run the testing script:
+  ```bash
+  python test_model.py
+  ```
 
-EasyShield has undergone several iterations of development, with each version incorporating improvements in dataset curation, augmentation strategies, and model training techniques. **Figure 7** (formerly Figure X) illustrates the performance trajectory across these development versions, highlighting the progressive enhancements in metrics such as accuracy and EER.
-
-![Model Performance Evolution](screenshots/ModelsPerformence.png)
-*Figure 7: Model Performance Evolution of EasyShield across different development versions, showcasing improvements in key anti-spoofing metrics.*
-
-## 10. Project Structure
+## 9. Project Structure
 
 The EasyShield project is organized as follows. This structure ensures that all code, tools, datasets, and documentation are easily accessible.
 
@@ -347,7 +312,7 @@ EasyShield-Anti-Spoofing-AI-Model/
 └── requirements_linux.txt              # Python package dependencies tailored for Linux/edge device setups
 ```
 
-## 11. Ethical & Practical Considerations
+## 10. Ethical & Practical Considerations
 
 While EasyShield offers significant advancements in face anti-spoofing, it is crucial to consider the ethical implications and practical limitations inherent in such technology. Responsible development and deployment are paramount.
 
@@ -359,12 +324,12 @@ While EasyShield offers significant advancements in face anti-spoofing, it is cr
     *   The collection, storage, and use of facial data are subject to stringent privacy regulations (e.g., GDPR, CCPA) and ethical guidelines. Facial images are considered sensitive personal information.
     *   **Mitigation:** Systems using EasyShield must ensure user consent is obtained where required, data is anonymized or pseudonymized if possible, stored securely, and processed only for the intended purposes. Transparency with users about data handling practices is essential.
 
-## 12. Conclusion
+## 11. Conclusion
 
 EasyShield presents a significant step forward in the domain of face anti-spoofing technology, particularly for deployment on resource-constrained edge devices. By synergizing a lightweight YOLOv12 nano architecture with a meticulously designed dataset preparation pipeline and specialized training methodologies, EasyShield achieves state-of-the-art performance. It demonstrably outperforms several existing models in crucial metrics including accuracy (92.30%), Equal Error Rate (EER: 6.25%), and Area Under the Curve (AUC: 98.61%).
 The comprehensive suite of tools provided with EasyShield facilitates the entire development lifecycle, from initial data collection and augmentation to model training, evaluation, and real-time testing. This holistic approach empowers developers and researchers to adapt and further enhance the system.
 
-## 13. References
+## 12. References
 
 The development of EasyShield and the information presented in this document draw upon knowledge from various sources in the fields of machine learning, computer vision, and face anti-spoofing. Key resources and technologies include:
 
