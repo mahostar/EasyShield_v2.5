@@ -18,6 +18,9 @@ _optimized for Edge Devices_
 <img src="screenshots/accuracy_co.png" width="800" alt="…"/>
 </div>
 
+DeePixBiS : [https://github.com/Saiyam26/Face-Anti-Spoofing-using-DeePixBiS](https://github.com/Saiyam26/Face-Anti-Spoofing-using-DeePixBiS)  
+WENDGOUNDI : [https://github.com/WENDGOUNDI/face_anti_spoofing_yolov8](https://github.com/WENDGOUNDI/face_anti_spoofing_yolov8)  
+MW3_antispoof : [https://github.com/kprokofi/light-weight-face-anti-spoofing](https://github.com/kprokofi/light-weight-face-anti-spoofing)
 
 
 
