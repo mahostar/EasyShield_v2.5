@@ -15,7 +15,7 @@ _optimized for Edge Devices_
 </div>
 
 <div align="center">
-<img src="screenshots/accuracy_com.png" width="600" alt="…"/>
+<img src="screenshots/accuracy_co.png" width="600" alt="…"/>
 </div>
 
 
