@@ -271,17 +271,6 @@ EasyShield-Anti-Spoofing-AI-Model/
 │   ├── image_filtring.py               # Tool for manual dataset review and filtering (with MTCNN assistance)
 │   ├── prepare_data.py                 # Script to format the dataset for YOLO training and generate dataset.yaml
 │   └── videos_and_images_face_extractor.py # Tool to extract faces from videos and images
-├── screenshots/                        # Contains all images and diagrams used in this README and other documentation
-│   ├── accuracy_comparison.png
-│   ├── curveCompareson.png
-│   ├── datasetExemple.png
-│   ├── eer_comparison.png
-│   ├── FaceExtractorTool.png
-│   ├── infrence.png
-│   ├── ModelsPerformence.png
-│   ├── overall_performance.png
-│   ├── piplineEasySpoof.png
-│   └── separationDigram.png
 ├── README.md                           # This comprehensive documentation file
 ├── requirements.txt                    # Python package dependencies for Windows and general use
 └── requirements_linux.txt              # Python package dependencies tailored for Linux/edge device setups
