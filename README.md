@@ -39,9 +39,7 @@ _optimized for Edge Devices_
 
 ## 1. Introduction
 
-Facial recognition technology has become increasingly prevalent in various applications, from unlocking smartphones to verifying identities for financial transactions. However, the vulnerability of these systems to spoofing attacks—where an impostor presents a fake facial biometric (e.g., a printed photo, a video replay) to deceive the system—poses a significant security risk. Consequently, robust face anti-spoofing mechanisms are essential to ensure the reliability and integrity of facial recognition systems.
-
-The performance of EasyShield has been rigorously evaluated and compared against several leading anti-spoofing models. As illustrated in **Figure 1** (Accuracy Comparison) and detailed in **Table 1** (Performance Comparison), EasyShield v2.5 demonstrates superior accuracy, precision, recall, F1 score, AUC, and EER compared to models like MN3_antispoof, DeePixBiS, and WENDGOUNDI. Specifically, EasyShield achieved an accuracy of 92.30% and an EER of 6.25% on our challenging 8000-image test dataset.
+Facial‐recognition systems can be tricked by things like printed photos or video replays, putting security at risk. EasyShield v2.5 tackles this head-on, outperforming other leading anti-spoofing methods in tests—catching fake faces with over 92% accuracy and keeping its error rate low.
 
 <div align="center">
 <img src="screenshots/accuracy_comparison.png" width="600" alt="…"/>
@@ -66,15 +64,14 @@ Figure 1: Accuracy comparison between EasyShield v2.5 and competing models.
 *Table 1: Performance Comparison of Anti-Spoofing Models on 8000-Image Test Dataset. EasyShield v2.5 shows superior overall performance.*
 
 ## 2. Features
-*   **Lightweight and Fast:** Optimized for deployment on edge devices with limited computational resources, achieving an average inference time of 75.47 ms.
-*   **High Accuracy:** Demonstrates 92.30% accuracy in detecting presentation attacks (e.g., print and replay attacks).
-*   **Robust Binary Classification:** Effectively classifies faces as "Real" or "Fake".
-*   **Comprehensive Toolkit:** Includes a suite of tools for dataset preparation, image augmentation, model training, and real-time testing.
-*   **State-of-the-Art Model:** Utilizes the YOLOv8 nano architecture for efficient and accurate detection.
-*   **Strong Performance Metrics:** Achieves an EER of 6.25% and an AUC of 98.61%.
+* **Lightweight & Fast**: Runs on edge devices in just ~75 ms per inference.
+* **High Accuracy**: Detects print and replay attacks with 92.30% accuracy.
+* **Robust Classification**: Clearly labels faces as “Real” or “Fake”.
+* **All-in-One Toolkit**: Includes data prep, augmentation, training, and live testing tools.
+* **Efficient Architecture**: Built on YOLOv8 nano for optimal performance.
 
 ## 3. System Pipeline Overview
-The EasyShield system employs an end-to-end workflow, illustrated in the figure below, which encompasses data acquisition and preprocessing, model training and evaluation, and finally, deployment for real-time inference. The core of the system is a YOLOv8 nano model, trained to classify input face images (resized to 640x640 pixels) as either "Real" or "Fake." Specialized Python-based tools, equipped with graphical user interfaces (GUIs) where appropriate, are provided to facilitate each step of this pipeline. These tools range from extracting face crops from raw video/image data and augmenting the dataset for improved robustness, to training the model and testing its performance.
+EasyShield’s workflow handles everything from gathering and cleaning face images to training its lightweight detection model and rolling it out for live use. User-friendly Python tools (with GUIs when needed) guide you through each stage—from grabbing faces out of photos or videos and beefing up your dataset to building the model and checking its accuracy—so you can go from raw footage to real-time spoof protection in one streamlined process.
 
 
 <div align="center">
@@ -187,38 +184,15 @@ Setting up EasyShield on Linux or an edge device (e.g., NVIDIA Jetson, Raspberry
 ## 6. Dataset Workflow
 
 The creation of a high-quality dataset is fundamental to the success and robustness of the EasyShield anti-spoofing model. The workflow involves a sequence of steps, each facilitated by specialized tools provided within this project:
+* **Data Collection (Manual)**: Collect diverse real and spoofed face data including print and replay attacks under varied conditions.
 
-1.  **Data Collection (Manual):**
-    *   Gather raw video footage and still images. This data should include a diverse set of:
-        *   **Real faces:** Various individuals, different ethnicities, ages, genders, lighting conditions, and camera qualities.
-        *   **Spoofing attacks:**
-            *   **Print attacks:** High-quality printed photos of faces, photos displayed on digital screens.
-            *   **Replay attacks:** Videos of faces played back on tablets, smartphones, or monitors.
+* **Face Extraction**: Use videos_and_images_face_extractor.py to crop and resize detected faces from collected media into 640x640 images.
 
-2.  **Face Extraction (`videos_and_images_face_extractor.py`):**
-    *   **Purpose:** To detect and isolate face regions from the collected media.
-    *   **Process:** Use the Face Extractor tool (see Section 4.1) to process your raw videos and images. The tool detects faces, crops them with an appropriate margin, and resizes them to 640x640 pixels.
-    *   **Output:** A structured dataset of cropped face images, typically separated into 'real' and 'fake' preliminary folders.
+* **Image Augmentation**: Use image_augmentor.py to apply transformations like rotation, blur, and brightness to increase dataset diversity.
 
-3.  **Image Augmentation (`image_augmentor.py`):**
-    *   **Purpose:** To artificially increase the size and diversity of the training dataset, improving the model's ability to generalize.
-    *   **Process:** Use the Image Augmentor tool (see Section 4.2) on the extracted face crops. Apply various augmentations like rotations, brightness/contrast adjustments, blur, etc.
-    *   **Output:** An expanded dataset of augmented face images.
+* **Image Filtering**: Use image_filtring.py with MTCNN to review and clean the dataset by removing misaligned or irrelevant face crops.
 
-4.  **Image Filtering (`image_filtring.py`):**
-    *   **Purpose:** To ensure the quality of the dataset by removing or correcting poorly cropped, mislabeled, or irrelevant images.
-    *   **Process:** Use the Image Filtering tool (see Section 4.3) to manually review the augmented dataset. The integrated MTCNN can help flag images that might be problematic (e.g., no face detected, multiple faces).
-    *   **Output:** A curated, high-quality dataset of face images.
-
-5.  **Dataset Preparation (`prepare_data.py`):**
-    *   **Purpose:** To organize the curated dataset into the specific format required by the YOLOv12 training framework.
-    *   **Process:** Run the `prepare_data.py` script (see Section 4.4). This script will typically:
-        *   Split the data into training and validation sets (e.g., 80% train, 20% valid).
-        *   Create the necessary directory structure (e.g., `Dataset_Demo_Exemple/train/images`, `Dataset_Demo_Exemple/train/labels`, etc.).
-        *   Generate a `dataset.yaml` file that defines the paths to train/validation sets and class names ("Real", "Fake").
-    *   **Output:** A YOLO-formatted dataset ready for training.
-
-![Dataset Example](screenshots/datasetExemple.png)
+* **Dataset Preparation**: Run prepare_data.py to split, organize, and format the dataset into YOLO structure and generate dataset.yaml.
 
 *Figure 6: Example of the dataset structure after preparation, showing 'real' and 'fake' images categorized for training and validation (actual structure may vary based on `prepare_data.py` script).*
 
