@@ -75,7 +75,7 @@ Figure 1: Accuracy comparison between EasyShield v2.5 and competing models.
 * **High Accuracy**: Detects print and replay attacks with 92.30% accuracy.
 * **Robust Classification**: Clearly labels faces as “Real” or “Fake”.
 * **All-in-One Toolkit**: Includes data prep, augmentation, training, and live testing tools.
-* **Efficient Architecture**: Built on YOLOv8 nano for optimal performance.
+* **Efficient Architecture**: Built on YOLOv12 nano for optimal performance.
 
 ## 3. System Pipeline Overview
 EasyShield’s workflow handles everything from gathering and cleaning face images to training its lightweight detection model and rolling it out for live use. User-friendly Python tools (with GUIs when needed) guide you through each stage—from grabbing faces out of photos or videos and beefing up your dataset to building the model and checking its accuracy—so you can go from raw footage to real-time spoof protection in one streamlined process.
@@ -96,7 +96,7 @@ EasyShield’s workflow handles everything from gathering and cleaning face imag
 
 - Dataset Preparation Script: Sorts images into YOLO format with train/valid/test folders and generates dataset.yaml for YOLO training.
 
-- Easy Spoof Trainer Tool: Trains YOLOv8 nano model on prepared dataset with support for tuning hyperparameters and outputs training metrics and best weights.
+- Easy Spoof Trainer Tool: Trains YOLOv12 nano model on prepared dataset with support for tuning hyperparameters and outputs training metrics and best weights.
 
 - Model Testing Tool: Loads trained model in a GUI for real-time or file-based testing, showing Real/Fake predictions with confidence scores.
 
@@ -205,7 +205,7 @@ The creation of a high-quality dataset is fundamental to the success and robustn
 
 ## 7. How to Train a New Model
 
-Training a new EasyShield anti-spoofing model involves using the `Easy_Spoof_Trainer.py` tool, which leverages the Ultralytics YOLOv8 framework.
+Training a new EasyShield anti-spoofing model involves using the `Easy_Spoof_Trainer.py` tool, which leverages the Ultralytics YOLOv12 framework.
 
 **Prerequisites:**
 *   A fully prepared dataset in YOLO format, created using the [Dataset Workflow](#6-dataset-workflow). This includes a `dataset.yaml` file and the corresponding image/label directories.
@@ -263,14 +263,14 @@ EasyShield-Anti-Spoofing-AI-Model/
 │   │   └── best.pt                     # Example of a trained model file
 │   └── old versions (less acurate - less performence)/                 # Older model versions for reference
 │       └── (similar structure with .pt files)
-├── Original YOLO v12 Models For training/ # Base YOLO models (Note: Project primarily uses YOLOv8, this dir might be for experimentation or legacy)
+├── Original YOLO v12 Models For training/ # Base YOLO models (Note: Project primarily uses YOLOv12, this dir might be for experimentation or legacy)
 │   └── (YOLO model files like .pt or .yaml)
 ├── Testing Code (Linux)/               # Model testing scripts optimized or specific to Linux environments
 │   └── test_model.py                   # GUI-based model testing script
 ├── Testing Code (windows)/             # Model testing scripts optimized or specific to Windows environments
 │   └── test_model.py                   # GUI-based model testing script
 ├── Trained TOOL for YOLO/              # Core training script for the EasyShield model
-│   └── Easy_Spoof_Trainer.py           # Python script to train the YOLOv8 model
+│   └── Easy_Spoof_Trainer.py           # Python script to train the YOLOv12 model
 ├── dataset preparing tools/            # Suite of tools for dataset creation, augmentation, and management
 │   ├── data_collection.py              # (Potentially) Script for initial data gathering or organization (if used)
 │   ├── image_augmentor.py              # Tool for applying data augmentation techniques
@@ -302,8 +302,8 @@ EasyShield is a lightweight face anti-spoofing system designed for edge devices.
 
 The development of EasyShield and the information presented in this document draw upon knowledge from various sources in the fields of machine learning, computer vision, and face anti-spoofing. Key resources and technologies include:
 
-*   **Ultralytics YOLOv8:** The core object detection and classification framework used. [https://github.com/ultralytics/ultralytics](https://github.com/ultralytics/ultralytics)
-*   **PyTorch:** The deep learning framework used by YOLOv8 and for model development. [https://pytorch.org/](https://pytorch.org/)
+*   **Ultralytics YOLOv12:** The core object detection and classification framework used. [https://github.com/ultralytics/ultralytics](https://github.com/ultralytics/ultralytics)
+*   **PyTorch:** The deep learning framework used by YOLOv12 and for model development. [https://pytorch.org/](https://pytorch.org/)
 *   **MTCNN (Multi-task Cascaded Convolutional Networks):** Often used for face detection. A popular implementation can be found at [https://github.com/ipazc/mtcnn](https://github.com/ipazc/mtcnn) (though the specific face detector in the tools may vary).
 *   **Face Recognition and Anti-Spoofing Research:**
     *   Rosebrock, A. (2021). *PyImageSearch Gurus course*. PyImageSearch. (General computer vision and deep learning resource).
