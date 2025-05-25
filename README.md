@@ -51,13 +51,6 @@ MW3_antispoof : [https://github.com/kprokofi/light-weight-face-anti-spoofing](ht
 Facial‐recognition systems can be tricked by things like printed photos or video replays, putting security at risk. EasyShield v2.5 tackles this head-on, outperforming other leading anti-spoofing methods in tests—catching fake faces with over 92% accuracy and keeping its error rate low.
 
 
-<div align="center">
-<img src="screenshots/infrence.png" width="400" alt="…"/>
-</div>
-
-Figure 1: Accuracy comparison between EasyShield v2.5 and competing models.
-
-
 | Metric                   | EasyShield v2.5 | MN3\_antispoof | DeePixBiS | WENDGOUNDI |
 |--------------------------|-----------------|----------------|-----------|------------|
 | Accuracy                 | **92.30%**      | 66.60%         | 54.20%    | 58.33%     |
