@@ -301,8 +301,7 @@ While EasyShield offers significant advancements in face anti-spoofing, it is cr
 
 ## 11. Conclusion
 
-EasyShield presents a significant step forward in the domain of face anti-spoofing technology, particularly for deployment on resource-constrained edge devices. By synergizing a lightweight YOLOv12 nano architecture with a meticulously designed dataset preparation pipeline and specialized training methodologies, EasyShield achieves state-of-the-art performance. It demonstrably outperforms several existing models in crucial metrics including accuracy (92.30%), Equal Error Rate (EER: 6.25%), and Area Under the Curve (AUC: 98.61%).
-The comprehensive suite of tools provided with EasyShield facilitates the entire development lifecycle, from initial data collection and augmentation to model training, evaluation, and real-time testing. This holistic approach empowers developers and researchers to adapt and further enhance the system.
+EasyShield is a lightweight face anti-spoofing system designed for edge devices. It combines a compact YOLOv12 nano model with a full pipeline for data preparation, training, and testing. It outperforms many existing methods in key performance areas. The included tools cover the whole process from data collection to real-time evaluation, making it easy to develop and improve the system.
 
 ## 12. References
 
