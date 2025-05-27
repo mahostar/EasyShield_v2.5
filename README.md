@@ -305,3 +305,6 @@ The development of EasyShield and the information presented in this document dra
 *   **Face Recognition and Anti-Spoofing Research:**
     *   Rosebrock, A. (2021). *PyImageSearch Gurus course*. PyImageSearch. (General computer vision and deep learning resource).
     *   **CelebA-Spoof Dataset:** A large-scale face anti-spoofing dataset. Zhang, Y., et al. (2020). CelebA-Spoof: Large-Scale CelebFace Anti-Spoofing Dataset with Rich Annotations. [https://github.com/Davidzhangyuanhan/CelebA-Spoof](https://github.com/Davidzhangyuanhan/CelebA-Spoof)
+
+
+[![Star History Chart](https://api.star-history.com/svg?repos=mahostar/EasyShield-Anti-Spoofing-AI-Model&type=Date)](https://star-history.com/#mahostar/EasyShield-Anti-Spoofing-AI-Model&Date)
