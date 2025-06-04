@@ -15,7 +15,7 @@ _optimized for Edge Devices_
 </div>
 
 <div align="center">
-<img src="screenshots/gif.gif" width="600" alt="…"/>
+<img src="screenshots/Demo.gif" width="600" alt="…"/>
 </div>
 
 <div align="center">
